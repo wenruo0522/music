@@ -4,7 +4,7 @@
       <div v-if="recommends.length" class="slider-wrapper">
         <div class="slider-content">
           <slider>
-            <div v-for="item in recommends" :key="item.id">
+            <div v-for="(item,index) in recommends" :key="index">
               <a :href="item.linkUrl">
                 <img :src="item.picUrl">
               </a>
@@ -22,14 +22,14 @@
 </template>
 
 <script>
-// import Slider from 'base/slider/slider'
+import Slider from 'base/slider/slider'
 import { getRecommend } from 'api/recommend'
 import { ERR_OK } from 'api/config'
 
 export default {
-  // components: {
-  //   Slider
-  // },
+  components: {
+    Slider
+  },
   data () {
     return {
       recommends: []
@@ -50,8 +50,8 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
-@import "~common/stylus/variable"
+<style scoped lang="stylus">
+  @import "~common/stylus/variable"
 
   .recommend
     position: fixed
