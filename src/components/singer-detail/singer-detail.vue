@@ -8,7 +8,7 @@
 import { mapGetters } from 'vuex'
 import { getSingerDetail } from 'api/singer'
 import { ERR_OK } from 'api/config'
-import { createSong } from 'common/js/song'
+import { createSong, isValidMusic, processSongsUrl } from 'common/js/song'
 import MusicList from 'components/music-list/music-list'
 
 export default {
@@ -41,18 +41,38 @@ export default {
         this.$router.push('/singer')
         return
       }
+      // getSingerDetail(this.singer.id).then((res) => {
+      //   if (res.code === ERR_OK) {
+      //     this.songs = this._normalizaSongs(res.data.list)
+      //     console.log(this._normalizaSongs(res.data.list))
+      //   }
+      // })
+      // new methods to get the songList
       getSingerDetail(this.singer.id).then((res) => {
         if (res.code === ERR_OK) {
-          this.songs = this._normalizaSongs(res.data.list)
-          console.log(this.singer.avatar)
+          processSongsUrl(this._normalizeSongs(res.data.list)).then((songs) => {
+            this.songs = songs
+          })
+          console.log(this.songs)
         }
       })
     },
-    _normalizaSongs (list) {
+    // _normalizaSongs (list) {
+    //   let ret = []
+    //   list.forEach((item) => {
+    //     let { musicData } = item
+    //     if (musicData.songid && musicData.albummid) {
+    //       ret.push(createSong(musicData))
+    //     }
+    //   })
+    //   return ret
+    // }
+    // new _normalizaSongs
+    _normalizeSongs (list) {
       let ret = []
       list.forEach((item) => {
         let { musicData } = item
-        if (musicData.songid && musicData.albummid) {
+        if (isValidMusic(musicData)) {
           ret.push(createSong(musicData))
         }
       })

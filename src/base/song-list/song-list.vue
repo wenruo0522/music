@@ -25,7 +25,7 @@ export default {
       this.$emit('select', song, index)
     },
     getDesc (song) {
-      return `${song.singer} . ${song.album}`
+      return `${song.singer} / ${song.album}`
     }
   }
 }
