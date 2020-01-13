@@ -2,11 +2,11 @@
 // import { commonParams, options } from './config'
 import { commonParams } from './config'
 import axios from 'axios'
-// const debug = process.env.NODE_ENV !== 'production'
+
+const debug = process.env.NODE_ENV !== 'production'
 
 export function getRecommend () {
-  const url = '/api/getTopBanner'
-  // const url = debug ? '/api/getTopBanner' : ''
+  const url = debug ? '/api/getTopBanner' : 'http://120.76.134.91/music/api/getTopBanner'
 
   const data = Object.assign({}, commonParams, {
     // loginUin: 0,
@@ -52,7 +52,7 @@ export function getRecommend () {
 }
 
 export function getDiscList() {
-  const url = '/api/getDiscList'
+  const url = debug ? '/api/getDiscList' : 'http://120.76.134.91/music/api/getDiscList'
 
   const data = Object.assign({}, commonParams, {
     platform: 'yqq.json',
@@ -74,7 +74,7 @@ export function getDiscList() {
 }
 
 export function getSongList (disstid) {
-  const url = '/api/getCdInfo'
+  const url = debug ? '/api/getCdInfo' : 'http://120.76.134.91/music/api/getCdInfo'
 
   const data = Object.assign({}, commonParams, {
     disstid,
